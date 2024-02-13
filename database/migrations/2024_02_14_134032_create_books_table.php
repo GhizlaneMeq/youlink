@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('author');
+            $table->text('description');
+            $table->boolean('is_reserved')->default(false);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

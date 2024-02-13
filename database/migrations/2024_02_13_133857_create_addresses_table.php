@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->string('city');
+            $table->string('avenue');
+            $table->enum('campus', ['youssoufia', 'safi', 'nador']);
             $table->timestamps();
+
         });
     }
 
