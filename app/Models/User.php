@@ -21,7 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'avatar',
+        'description',
+        'email_verified_at',
+        'address',
     ];
 
     /**
@@ -45,18 +49,35 @@ class User extends Authenticatable
     ];
 
 
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
-    }
+    
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class);
     }
+    
 
     public function books()
     {
         return $this->hasMany(Book::class);
+    }
+
+    public function bookReservations()
+    {
+        return $this->hasMany(BookReservation::class);
+    }
+
+
+
+
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::created(function ($user) {
+            $defaultRole = Role::where('name', 'user')->first();
+    
+            $user->roles()->attach($defaultRole);
+        });
     }
 }

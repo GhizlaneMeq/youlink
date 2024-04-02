@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'author', 'description', 'image', 'is_reserved', 'user_id', 'category_id'];
+    protected $fillable = ['title', 'author', 'description', 'image', 'is_reserved', 'user_id', 'book_category_id'];
 
     public function user()
     {
@@ -19,4 +19,10 @@ class Book extends Model
     {
         return $this->belongsTo(BookCategory::class);
     }
+
+    public function bookReservations()
+    {
+        return $this->hasMany(BookReservation::class);
+    }
+
 }
