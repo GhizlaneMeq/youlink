@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
+            $table->string('image');
             $table->text('description')->nullable();
             $table->boolean('is_reserved')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

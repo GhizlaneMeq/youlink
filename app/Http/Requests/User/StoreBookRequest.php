@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreLostItemRequest extends FormRequest
+class StoreBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,11 @@ class StoreLostItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'user_id' => 'required',
             'description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'dateLost' => 'required|date',
-            'category' => 'nullable|string|max:255',
+            'book_category_id' => 'required|exists:book_categories,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', 
         ];
     }
 }
