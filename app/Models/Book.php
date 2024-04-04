@@ -25,4 +25,14 @@ class Book extends Model
         return $this->hasMany(BookReservation::class);
     }
 
+    public function requestedExchanges()
+    {
+        return $this->hasMany(Exchange::class, 'requested_book_id');
+    }
+
+    public function offeredExchanges()
+    {
+        return $this->hasMany(Exchange::class, 'offered_book_id');
+    }
+
 }

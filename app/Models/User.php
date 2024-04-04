@@ -56,6 +56,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
     
+    public function hasRole($roleName)
+     {
+         return $this->roles->contains('name', $roleName);
+     }
 
     public function books()
     {
@@ -65,6 +69,17 @@ class User extends Authenticatable
     public function bookReservations()
     {
         return $this->hasMany(BookReservation::class);
+    }
+
+
+    public function requestedExchanges()
+    {
+        return $this->hasMany(Exchange::class, 'requester_id');
+    }
+
+    public function offeredExchanges()
+    {
+        return $this->hasMany(Exchange::class, 'offerer_id');
     }
 
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->enum('status', ['lost', 'found'])->default('found');
             $table->string('location');
             $table->date('dateLost')->nullable();
