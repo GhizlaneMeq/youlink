@@ -47,8 +47,14 @@ class BookController extends Controller
         $book = Book::create($request->all());
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->storePublicly('images/books');
-            $book->image = $imagePath;
+            // $imagePath = $request->file('image')->storePublicly('images/books');
+          
+
+            $fileOriginalName = $request->file('image')->getClientOriginalExtension();
+            $image = time() .'.'. $fileOriginalName;
+            $request->image->storeAs('image', $image, 'public');
+
+            $book->image = $image;
             $book->save();
         }
 

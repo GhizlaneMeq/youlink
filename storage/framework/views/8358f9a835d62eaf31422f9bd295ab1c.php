@@ -1,7 +1,7 @@
-@extends('layouts.book')
 
-@section('main')
-{{-- <div class="h-32 md:h-40"></div> --}}
+
+<?php $__env->startSection('main'); ?>
+
    
 
 
@@ -19,8 +19,8 @@
             </div>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <form id="editBookForm" method="POST">
-                    @csrf
-                    @method('PUT')
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PUT'); ?>
                     <div class="mb-4">
                         <label for="bookTitle" class="block text-sm font-medium text-gray-700">Title</label>
                         <input type="text" name="title" id="bookTitle" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
@@ -55,9 +55,9 @@
                 <h3 class="text-lg font-medium text-gray-900">Add Book</h3>
             </div>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <form action="{{ route('user.books.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                <form action="<?php echo e(route('user.books.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" name="user_id" value="<?php echo e(Auth::id()); ?>">
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -74,9 +74,9 @@
                         <div class="sm:col-span-3">
                             <label for="book_category_id" class="block text-sm font-medium text-gray-700">Category</label>
                             <select id="book_category_id" name="book_category_id" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
-                                @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="sm:col-span-6">
@@ -115,23 +115,23 @@
 
 <button id="addBookBtn" type="button" class="px-8 py-2 m rounded text-white text-sm tracking-wider font-medium outline-none border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">Add book </button>
 
-@if($books->isEmpty())
+<?php if($books->isEmpty()): ?>
 <div class="bg-white shadow-md rounded-md p-4 text-center text-gray-700 w-full">
     <p>You haven't created any books yet.</p>
 </div>
-@else
+<?php else: ?>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    @foreach($books as $book)
+    <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
     <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800">
         <div class="flex items-center justify-between p-3">
             <div class="flex items-center space-x-2">
                 
-                {{-- <img src="{{url('/storage/image/'.$book->image) }} " alt="" --}}
-                    {{-- class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300"> --}}
+                
+                    
                 <div class="-space-y-1">
-                    <h2 class="text-sm font-semibold leading-none">{{Auth::user()->name}}</h2>
+                    <h2 class="text-sm font-semibold leading-none"><?php echo e(Auth::user()->name); ?></h2>
                     <span class="inline-block text-xs leading-none dark:text-gray-600">Somewhere</span>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                 <div
                     class="options-menu hidden absolute  z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div class="py-1" role="none">
-                        <a href="{{ route('user.books.show', $book->id) }}"
+                        <a href="<?php echo e(route('user.books.show', $book->id)); ?>"
                             class="text-gray-700 flex px-4 py-2 text-sm hover:bg-gray-100">
                             <svg class="mr-3 h-5 w-5 text-gray-400" x-description="Heroicon name: mini/star"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -164,7 +164,7 @@
                             </svg>
                             <span>show more details</span>
                         </a>
-                        <button onclick="openModal('{{ $book->title }}', '{{ $book->author }}', '{{ $book->description }}','{{ $book->id }}')" title="Edit" type="button"
+                        <button onclick="openModal('<?php echo e($book->title); ?>', '<?php echo e($book->author); ?>', '<?php echo e($book->description); ?>','<?php echo e($book->id); ?>')" title="Edit" type="button"
                             class="options-button text-gray-700 flex px-4 py-2 text-sm hover:bg-gray-100">
                             <svg class="mr-3 h-5 w-5 text-gray-400" x-description="Heroicon name: mini/code-bracket"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -176,9 +176,9 @@
                             <span>edit</span>
                         </button>
                         
-                        <form action="{{ route('user.books.destroy', $book->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+                        <form action="<?php echo e(route('user.books.destroy', $book->id)); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <?php echo method_field('DELETE'); ?>
                             <button type="submit" class="text-gray-700 flex px-4 py-2 text-sm hover:bg-gray-100">
                                 <svg class="mr-3 h-5 w-5 text-gray-400" x-description="Heroicon name: mini/flag"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -195,70 +195,34 @@
                 </div>
             </div>
         </div>
-        <img src="{{ asset($book->image) }}" alt=""
+        <img src="<?php echo e(asset($book->image)); ?>" alt=""
             class="object-cover object-center w-full h-72 dark:bg-gray-500">
         <div class="p-3">
 
             <div class="flex flex-wrap items-center pt-3 pb-1">
                 <div class="flex items-center space-x-2">
-                    <span class="text-base font-semibold">{{$book->title}}</span>
+                    <span class="text-base font-semibold"><?php echo e($book->title); ?></span>
                     <span class="text-sm"> by
-                        <span class="font-semibold">{{$book->author}}</span>
+                        <span class="font-semibold"><?php echo e($book->author); ?></span>
                     </span>
                 </div>
             </div>
             <div class="space-y-3">
-                <p class="text-sm">{{$book->description}}
+                <p class="text-sm"><?php echo e($book->description); ?>
+
                 </p>
             </div>
         </div>
     </div>
 
 
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 
-@endif
+<?php endif; ?>
 
 </div>
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var buttons = document.querySelectorAll('.options-button');
 
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var menu = this.nextElementSibling;
-                menu.classList.toggle('hidden');
-                event.stopPropagation(); // Stop event propagation to prevent closing all menus
-            });
-        });
-
-        document.addEventListener('click', function (event) {
-            var menus = document.querySelectorAll('.options-menu');
-            menus.forEach(function (menu) {
-                if (!menu.contains(event.target)) {
-                    menu.classList.add('hidden');
-                }
-            });
-        });
-    });
-
-
-
-
-    function openModal(title, author, description,id) {
-        document.getElementById('bookTitle').textContent = title;
-        document.getElementById('bookAuthor').textContent = author;
-        document.getElementById('bookDescription').textContent = description;
-
-        document.getElementById('bookModal').classList.remove('hidden');
-    }
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-        // Hide the modal when close button is clicked
-        document.getElementById('bookModal').classList.add('hidden');
-    });
-</script> --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var buttons = document.querySelectorAll('.options-button');
@@ -341,4 +305,5 @@
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.book', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\react projects\youlink\resources\views/user/books/index.blade.php ENDPATH**/ ?>
