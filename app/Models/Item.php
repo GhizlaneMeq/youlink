@@ -17,13 +17,19 @@ class Item extends Model
         'location',
         'dateLost',
         'dateFound',
-        'user_id',
+        'owner_id', 
+        'creator_id', 
     ];
 
     protected $dates = ['dateLost', 'dateFound'];
 
-    public function user()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\Home\bookController;
+use App\Http\Controllers\Home\ItemController;
 use App\Http\Controllers\User\FoundItemController;
 use App\Http\Controllers\User\LostItemController;
 use Illuminate\Support\Facades\Route;
@@ -60,10 +61,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Route::resource('exchanges', 'ExchangeController');
     Route::get('/incoming-requests', 'ExchangeController@incomingRequests')->name('exchanges.incomingRequests');
     Route::get('/outgoing-requests', 'ExchangeController@outgoingRequests')->name('exchanges.outgoingRequests');
+    Route::put('/exchanges/{exchange}', 'ExchangeController@updateStatus')->name('exchanges.updateStatus');
+
 });
 
 Route::resource('/books', bookController::class);
-Route::put('/user/exchanges/{exchange}', 'App\Http\Controllers\User\ExchangeController@updateStatus')->name('user.exchanges.updateStatus');
+Route::resource('/items', ItemController::class);
+
+
 
 
 
