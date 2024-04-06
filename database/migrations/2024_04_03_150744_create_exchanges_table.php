@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('exchanges', function (Blueprint $table) {
             $table->id();
             $table->foreignId('requested_book_id')->constrained('books')->onDelete('cascade');
-            $table->foreignId('offered_book_id')->constrained('books')->onDelete('cascade');
+            $table->foreignId('received_book_id')->constrained('books')->onDelete('cascade');
             $table->unsignedBigInteger('requester_id');
-            $table->unsignedBigInteger('offerer_id');
+            $table->unsignedBigInteger('receiver_id');
             $table->enum('status', ['requested', 'accepted', 'completed', 'cancelled'])->default('requested');
+            $table->boolean('is_returned')->default(false);
             $table->timestamps();
 
             $table->foreign('requester_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('offerer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

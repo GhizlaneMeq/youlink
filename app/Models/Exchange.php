@@ -11,21 +11,21 @@ class Exchange extends Model
 
     protected $fillable = [
         'requested_book_id',
-        'offered_book_id',
+        'received_book_id',
         'requester_id',
-        'offerer_id',
+        'receiver_id',
         'status',
+        'is_returned',
     ];
-
 
     public function requestedBook()
     {
         return $this->belongsTo(Book::class, 'requested_book_id');
     }
 
-    public function offeredBook()
+    public function receivedBook()
     {
-        return $this->belongsTo(Book::class, 'offered_book_id');
+        return $this->belongsTo(Book::class, 'received_book_id');
     }
 
     public function requester()
@@ -33,8 +33,8 @@ class Exchange extends Model
         return $this->belongsTo(User::class, 'requester_id');
     }
 
-    public function offerer()
+    public function receiver()
     {
-        return $this->belongsTo(User::class, 'offerer_id');
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 }

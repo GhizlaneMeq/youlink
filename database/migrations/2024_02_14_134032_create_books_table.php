@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('author');
             $table->string('image');
             $table->text('description')->nullable();
-            $table->boolean('is_reserved')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_category_id')->constrained()->onDelete('cascade');
             $table->timestamps();

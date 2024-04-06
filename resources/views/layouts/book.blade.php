@@ -61,23 +61,16 @@
                         data-name="16" data-original="#000000" />
                     </svg>
                   </a>
-                  <ul
-                    class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>my books</a></li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>my exchanges</a></li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>add book </a></li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>see all the books </a></li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>Blog</a></li>
-                  </ul>
+                  <ul class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
+                    <li class='py-2'><a href='{{ route("books.index") }}' class='hover:text-blue-500 font-bold text-white text-[15px] block'>All Books</a></li>
+                    <li class='py-2'><a href='{{route("user.books.index")}}' class='hover:text-blue-500 font-bold text-white text-[15px] block'>My Books</a></li>
+                    <li class='py-2'><a href='{{route("user.exchanges.incomingRequests")}}' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Incoming Requests</a></li>
+                    <li class='py-2'><a href='{{route("user.exchanges.outgoingRequests")}}' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Outgoing Requests</a></li>
+                </ul>
                 </li>
                 <li class='group max-lg: max-lg:py-2 relative'>
                   <a href='javascript:void(0)'
-                    class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>Blog<svg
+                    class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>Discovery Depot<svg
                       xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='currentColor' class="ml-1 inline-block"
                       viewBox="0 0 24 24">
                       <path
@@ -88,14 +81,11 @@
                   <ul
                     class='absolute hidden group-hover:block max-lg:border max-lg:border-gray-500 shadow-lg bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px]'>
                     <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>Foods</a></li>
-                    <li class=' py-2'>
-                      <a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Sale</a>
-                    </li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>Marketing</a></li>
-                    <li class=' py-2'><a href='javascript:void(0)'
-                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>Investment</a></li>
+                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>All Items</a></li>
+                    <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Lost Items:</a></li>
+                    <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Found Items</a></li>
+                    <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Lost Item </a></li>
+                    <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Found Item </a></li>
                   </ul>
                 </li>
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'

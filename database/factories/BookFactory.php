@@ -20,8 +20,8 @@ class BookFactory extends Factory
             'title' => $this->faker->sentence,
             'author' => $this->faker->name,
             'description' => $this->faker->paragraph,
-            'is_reserved' => $this->faker->boolean,
             'user_id' => 1,
+            'image' => $this->faker->imageUrl(),
             'book_category_id' => rand(1,9),
         ];
     }

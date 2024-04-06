@@ -1,44 +1,76 @@
 @extends('layouts.book')
 
 @section('main')
-{{-- <div class="h-32 md:h-40"></div> --}}
-   
-
-
-
-
 
 <div id="bookModal" class="hidden fixed inset-0 overflow-y-auto">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 sm:pt-0">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-gray-50 px-4 py-5 sm:px-6">
                 <h3 class="text-lg font-medium text-gray-900">Edit Book</h3>
             </div>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <form id="editBookForm" method="POST">
+                <form id="editBookForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
                         <label for="bookTitle" class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" name="title" id="bookTitle" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                        <input type="text" name="title" id="bookTitle"
+                            class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            required>
                     </div>
                     <div class="mb-4">
                         <label for="bookAuthor" class="block text-sm font-medium text-gray-700">Author</label>
-                        <input type="text" name="author" id="bookAuthor" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                        <input type="text" name="author" id="bookAuthor"
+                            class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            required>
                     </div>
                     <div class="mb-4">
                         <label for="bookDescription" class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" id="bookDescription" rows="3" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required></textarea>
+                        <textarea name="description" id="bookDescription" rows="3"
+                            class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="book_category_id" class="block text-sm font-medium text-gray-700">Category</label>
+                        <select id="book_category_id" name="book_category_id"
+                            class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            required>
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="cover-photo-edit" class="block text-sm font-medium leading-6 text-gray-900">Cover
+                            photo</label>
+                        <div
+                            class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
+                                <label for="imageEdit"
+                                    class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                    <span>Upload a file</span>
+                                    <input id="imageEdit" name="image" type="file" class="sr-only"
+                                        onchange="previewImage(this, 'previewEdit')">
+                                </label>
+                                <img id="previewEdit" class="mt-4 max-w-full mx-auto hidden" style="max-height: 200px;"
+                                    alt="Preview Image" />
+                                <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                            </div>
+                        </div>
                     </div>
                     <input type="hidden" name="book_id" id="bookId">
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button id="saveChangesBtn" type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:ml-3 sm:w-auto sm:text-sm">Save
+                            Changes</button>
+                        <button id="closeModal" type="button"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
+                    </div>
                 </form>
-            </div>
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button id="saveChangesBtn" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:ml-3 sm:w-auto sm:text-sm">Save Changes</button>
-                <button id="closeModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
             </div>
         </div>
     </div>
@@ -50,7 +82,8 @@
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-gray-50 px-4 py-5 sm:px-6">
                 <h3 class="text-lg font-medium text-gray-900">Add Book</h3>
             </div>
@@ -61,56 +94,68 @@
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" name="title" id="title" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                            <input type="text" name="title" id="title"
+                                class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                                required>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
-                            <input type="text" name="author" id="author" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                            <input type="text" name="author" id="author"
+                                class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                                required>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea name="description" id="description" rows="3" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required></textarea>
+                            <textarea name="description" id="description" rows="3"
+                                class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                                required></textarea>
                         </div>
                         <div class="sm:col-span-3">
-                            <label for="book_category_id" class="block text-sm font-medium text-gray-700">Category</label>
-                            <select id="book_category_id" name="book_category_id" class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                            <label for="book_category_id"
+                                class="block text-sm font-medium text-gray-700">Category</label>
+                            <select id="book_category_id" name="book_category_id"
+                                class="mt-1 p-2 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                                required>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="sm:col-span-6">
-                            <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
-                            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                <div class="text-center">
-                                    <label for="image" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                        <span>Upload a file</span>
-                                        <input id="image" name="image" type="file" class="sr-only" onchange="previewImage(this)">
-                                    </label>
-                                    <img id="preview" class="mt-4 max-w-full mx-auto hidden" style="max-height: 200px;" alt="Preview Image" />
-                                    <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                                </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="cover-photo-add" class="block text-sm font-medium leading-6 text-gray-900">Cover
+                            photo</label>
+                        <div
+                            class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
+                                <label for="imageAdd"
+                                    class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                    <span>Upload a file</span>
+                                    <input id="imageAdd" name="image" type="file" class="sr-only"
+                                        onchange="previewImage(this, 'previewAdd')">
+                                </label>
+                                <img id="previewAdd" class="mt-4 max-w-full mx-auto hidden" style="max-height: 200px;"
+                                    alt="Preview Image" />
+                                <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                             </div>
                         </div>
-                        
-                        
-                    </div> 
+                    </div>
+
+
+
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <button  type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">Save Book</button>
-                        <button id="closeModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">Save
+                            Book</button>
+                        <button id="closeModal" type="button"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
                     </div>
                 </form>
             </div>
-           
+
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 
 <button id="addBookBtn" type="button" class="px-8 py-2 m rounded text-white text-sm tracking-wider font-medium outline-none border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">Add book </button>
@@ -127,9 +172,10 @@
     <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800">
         <div class="flex items-center justify-between p-3">
             <div class="flex items-center space-x-2">
+
+                 <img src="{{url('/storage/image/'.$book->image) }} " alt=""
+                    class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300">
                 
-                {{-- <img src="{{url('/storage/image/'.$book->image) }} " alt="" --}}
-                    {{-- class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300"> --}}
                 <div class="-space-y-1">
                     <h2 class="text-sm font-semibold leading-none">{{Auth::user()->name}}</h2>
                     <span class="inline-block text-xs leading-none dark:text-gray-600">Somewhere</span>
@@ -164,7 +210,9 @@
                             </svg>
                             <span>show more details</span>
                         </a>
-                        <button onclick="openModal('{{ $book->title }}', '{{ $book->author }}', '{{ $book->description }}','{{ $book->id }}')" title="Edit" type="button"
+                        <button
+                            onclick="openModal('{{ $book->title }}', '{{ $book->author }}', '{{ $book->description }}','{{ $book->id }}')"
+                            title="Edit" type="button"
                             class="options-button text-gray-700 flex px-4 py-2 text-sm hover:bg-gray-100">
                             <svg class="mr-3 h-5 w-5 text-gray-400" x-description="Heroicon name: mini/code-bracket"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -175,7 +223,7 @@
                             </svg>
                             <span>edit</span>
                         </button>
-                        
+
                         <form action="{{ route('user.books.destroy', $book->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -195,7 +243,7 @@
                 </div>
             </div>
         </div>
-        <img src="{{ asset($book->image) }}" alt=""
+        <img src="{{ asset('storage/images/books/' . $book->image) }}" alt=""
             class="object-cover object-center w-full h-72 dark:bg-gray-500">
         <div class="p-3">
 
@@ -221,44 +269,7 @@
 @endif
 
 </div>
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var buttons = document.querySelectorAll('.options-button');
 
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var menu = this.nextElementSibling;
-                menu.classList.toggle('hidden');
-                event.stopPropagation(); // Stop event propagation to prevent closing all menus
-            });
-        });
-
-        document.addEventListener('click', function (event) {
-            var menus = document.querySelectorAll('.options-menu');
-            menus.forEach(function (menu) {
-                if (!menu.contains(event.target)) {
-                    menu.classList.add('hidden');
-                }
-            });
-        });
-    });
-
-
-
-
-    function openModal(title, author, description,id) {
-        document.getElementById('bookTitle').textContent = title;
-        document.getElementById('bookAuthor').textContent = author;
-        document.getElementById('bookDescription').textContent = description;
-
-        document.getElementById('bookModal').classList.remove('hidden');
-    }
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-        // Hide the modal when close button is clicked
-        document.getElementById('bookModal').classList.add('hidden');
-    });
-</script> --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var buttons = document.querySelectorAll('.options-button');
@@ -267,7 +278,7 @@
             button.addEventListener('click', function (event) {
                 var menu = this.nextElementSibling;
                 menu.classList.toggle('hidden');
-                event.stopPropagation(); 
+                event.stopPropagation();
             });
         });
 
@@ -300,43 +311,44 @@
 
 
 
-    
+
     //for create book modal
     function showModal() {
         document.getElementById('createbookModal').classList.remove('hidden');
-        document.body.classList.add('overflow-hidden'); 
+        document.body.classList.add('overflow-hidden');
     }
 
-    
+
     function hideModal() {
         document.getElementById('createbookModal').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden'); 
+        document.body.classList.remove('overflow-hidden');
     }
 
-    
-    document.getElementById('addBookBtn').addEventListener('click', function() {
+
+    document.getElementById('addBookBtn').addEventListener('click', function () {
         showModal();
     });
 
-   
-    document.getElementById('closeModal').addEventListener('click', function() {
+
+    document.getElementById('closeModal').addEventListener('click', function () {
         hideModal();
     });
 
 
 
-    function previewImage(input) {
+    function previewImage(input, imgId) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                document.getElementById('preview').src = e.target.result;
-                document.getElementById('preview').classList.remove('hidden');
+                document.getElementById(imgId).src = e.target.result;
+                document.getElementById(imgId).classList.remove('hidden');
             }
 
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 
 </script>
 

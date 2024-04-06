@@ -43,23 +43,22 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $book = Book::create($request->all());
+{
+    $book = Book::create($request->all());
 
-        if ($request->hasFile('image')) {
-            // $imagePath = $request->file('image')->storePublicly('images/books');
-          
-
-            $fileOriginalName = $request->file('image')->getClientOriginalExtension();
-            $image = time() .'.'. $fileOriginalName;
-            $request->image->storeAs('image', $image, 'public');
-
-            $book->image = $image;
-            $book->save();
-        }
-
-        return redirect()->route('user.books.index')->with('success', 'Book created successfully.');
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $imagePath = $image->storeAs('public/images/books', $imageName);
+    
+        $book->image = $imageName; 
+        $book->save();
     }
+    
+
+    return redirect()->route('user.books.index')->with('success', 'Book created successfully.');
+}
+
 
 
 
@@ -94,8 +93,22 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        $book->update($request->validated());
-
+        $book->update([
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+            'book_category_id' => $request->book_category_id,
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = $image->storeAs('public/images/books', $imageName);
+    
+            $book->image = $imageName;
+            $book->save();
+        }
+    
         return redirect()->route('user.books.index')
             ->with('success', 'Book updated successfully.');
     }
@@ -113,4 +126,6 @@ class BookController extends Controller
         return redirect()->route('user.books.index')
             ->with('success', 'Book deleted successfully.');
     }
+
+    
 }

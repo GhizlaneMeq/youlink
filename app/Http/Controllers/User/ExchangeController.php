@@ -16,82 +16,81 @@ class ExchangeController extends Controller
         return view('user.books.exchange', ['exchanges' => $exchanges]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('exchanges.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // Add your validation logic here if needed
-
+        /* $validatedData = $request->validate([
+            'requested_book_id' => 'required',
+            'received_book_id' => 'required',
+            'receiver_id' => 'required',
+            'status' => 'required|in:requested,accepted,completed,cancelled',
+            'is_returned' => 'required|boolean',
+        ]);
+ */
         Exchange::create($request->all());
-        
-        return redirect()->route('exchanges.index')
+
+        return redirect()->back()
             ->with('success', 'Exchange created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
-     */
     public function show(Exchange $exchange)
     {
         return view('exchanges.show', compact('exchange'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Exchange $exchange)
     {
         return view('exchanges.edit', compact('exchange'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Exchange $exchange)
     {
-        // Add your validation logic here if needed
+        $validatedData = $request->validate([
+            'status' => 'required|in:requested,accepted,completed,cancelled',
+            'is_returned' => 'required|boolean',
+        ]);
 
-        $exchange->update($request->all());
+        $exchange->update($validatedData);
 
         return redirect()->route('exchanges.index')
             ->with('success', 'Exchange updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Exchange $exchange)
     {
         $exchange->delete();
 
         return redirect()->route('exchanges.index')
             ->with('success', 'Exchange deleted successfully.');
+    }
+
+    public function updateStatus(Request $request, Exchange $exchange)
+    {
+        $request->validate([
+            'status' => 'required|in:requested,accepted,completed,cancelled', 
+        ]);
+
+        $exchange->status = $request->status;
+        $exchange->save();
+
+        return response()->json(['message' => 'Status updated successfully'], 200);
+    }
+
+    public function incomingRequests()
+    {
+        $exchanges = Exchange::where('receiver_id', Auth::id())->get();
+
+        return view('user.books.exchange.incoming',compact('exchanges'));
+    }
+
+    public function outgoingRequests()
+    {
+        $exchanges = Exchange::where('requester_id', Auth::id())->get();
+
+        return view('user.books.exchange.outgoing',compact('exchanges'));
     }
 }

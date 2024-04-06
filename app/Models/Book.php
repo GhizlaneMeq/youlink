@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'author', 'description', 'image', 'is_reserved', 'user_id', 'book_category_id'];
+    protected $fillable = ['title', 'author', 'description', 'image', 'user_id', 'book_category_id'];
 
     public function user()
     {
@@ -30,9 +30,9 @@ class Book extends Model
         return $this->hasMany(Exchange::class, 'requested_book_id');
     }
 
-    public function offeredExchanges()
+    public function receivedExchanges()
     {
-        return $this->hasMany(Exchange::class, 'offered_book_id');
+        return $this->hasMany(Exchange::class, 'received_book_id');
     }
 
 }
