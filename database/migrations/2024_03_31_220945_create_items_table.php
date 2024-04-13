@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('picture');
             $table->text('description')->nullable();
             $table->string('category')->nullable();
             $table->enum('status', ['lost', 'found'])->default('found');

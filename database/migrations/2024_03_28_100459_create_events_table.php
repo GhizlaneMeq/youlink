@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('availableSeats');
             $table->integer('takenSeats')->default(0);
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
-            $table->enum('reservationMethod', ['automatic', 'manual'])->default('manual');
             $table->string('event_category');
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

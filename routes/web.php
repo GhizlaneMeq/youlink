@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\Home\bookController;
+use App\Http\Controllers\Home\EventController;
 use App\Http\Controllers\Home\ItemController;
 use App\Http\Controllers\User\FoundItemController;
 use App\Http\Controllers\User\LostItemController;
@@ -63,6 +64,15 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Route::get('/outgoing-requests', 'ExchangeController@outgoingRequests')->name('exchanges.outgoingRequests');
     Route::put('/exchanges/{exchange}', 'ExchangeController@updateStatus')->name('exchanges.updateStatus');
 
+
+});
+
+Route::group(['prefix' => 'bde', 'as' => 'bde.', 'namespace' => 'App\Http\Controllers\Bde'], function () {
+
+    Route::resource('events', 'EventController');
+
+
+
 });
 
 Route::resource('/books', bookController::class);
@@ -79,6 +89,12 @@ Route::post('/lost-items', [LostItemController::class, 'store'])->name('storeLos
 Route::post('found-items', [FoundItemController::class, 'store'])->name('found-items.store');
 
 
+Route::post('/items/{item}/report-ownership', [ItemController::class, 'reportOwnership'])->name('items.report_ownership');
+Route::get('/items/{item}/report-finding', [ItemController::class, 'reportFindingForm'])->name('items.report_finding_form');
+Route::post('/items/{item}/report-finding', [ItemController::class, 'reportFinding'])->name('items.report_finding');
+
+
+Route::resource('events', EventController::class);
 
 
 
