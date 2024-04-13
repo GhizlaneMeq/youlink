@@ -14,4 +14,5 @@ class ItemController extends Controller
 
         return view('lost&found.index', compact('items'));
     }
+    
 }

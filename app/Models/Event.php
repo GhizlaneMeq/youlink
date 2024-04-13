@@ -19,14 +19,12 @@ class Event extends Model
         'availableSeats',
         'takenSeats',
         'status',
-        'reservationMethod',
         'event_category',
         'user_id',
     ];
 
-    protected $dates = ['date'];
+    protected $dates = ['date', 'created_at', 'updated_at', 'deleted_at'];
 
-    
     public function user()
     {
         return $this->belongsTo(User::class);

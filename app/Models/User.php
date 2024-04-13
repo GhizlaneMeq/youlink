@@ -82,6 +82,14 @@ class User extends Authenticatable
         return $this->hasMany(Exchange::class, 'offerer_id');
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function EventReservations(){
+        return $this->hasMany(EventReservation::class);
+    }
 
 
 
