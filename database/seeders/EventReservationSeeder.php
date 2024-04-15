@@ -1,9 +1,9 @@
 <?php
+// database/seeders/EventReservationSeeder.php
 
 namespace Database\Seeders;
 
 use App\Models\EventReservation;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventReservationSeeder extends Seeder
@@ -14,6 +14,5 @@ class EventReservationSeeder extends Seeder
     public function run(): void
     {
         EventReservation::factory()->count(10)->create();
-        
     }
 }

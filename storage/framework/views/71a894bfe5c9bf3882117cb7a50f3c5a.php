@@ -1,162 +1,102 @@
 
 
-<?php $__env->startSection('content'); ?>
-    <div class="text-center">
-        <a href="<?php echo e(route('events.create')); ?>" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Add New event
-        </a>
-    </div>
-<div class="relative mt-10 overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3 text-center">
-                    #
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    Image
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    title
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    start date
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    end date
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   price
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   Location
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   Event Category
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   Available seats
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   status
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   automatic acceptance
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                   published status
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-           <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <tr>
-                <th scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   <?php echo e($event->id); ?>
+<?php $__env->startSection('main'); ?>
 
-                </th>
-                <th scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <img class="w-15 h-15 " src="<?php echo e($event->getFirstMediaUrl('images')); ?>" alt="event photo">
-                </th>
-                <td class="px-6 py-4 text-center">
-                <?php echo e($event->title); ?>
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                <?php echo e($event->start_date); ?>
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                <?php echo e($event->end_date); ?>
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                <?php echo e($event->price); ?>$
-                </td>
-                <td class="px-6 py-4 text-center">
-                   <?php echo e($event->location); ?>
-
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                   <?php echo e($event->category->name); ?>
-
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                <?php echo e($event->available_seats); ?>
-
-                </td>
-                <td class="px-6 py-4 text-center">
-                <button class="hover:text-blue-500" onclick="event.preventDefault(); document.getElementById('update-event-form').submit();">
-                    <span class="text-gray-900 whitespace-no-wrap">
-                        <?php if($event->status == 0): ?>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-indigo-300">Accepted</span>
-                        <?php else: ?>
-                        <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-indigo-300">Refused</span>
-                        <?php endif; ?>
-                    </span>
-                </button>
-                </td>
-                <form id="update-automatic-acceptance-form-<?php echo e($event->id); ?>" method="POST" action="<?php echo e(route('events.updateAutomaticAcceptance', $event->id)); ?>" style="display: none;">
-                    <?php echo csrf_field(); ?>
-                    <?php echo method_field('put'); ?>
-                    <td class="px-6 py-4 text-center">
-                        <button class="hover:text-blue-500" onclick="event.preventDefault(); document.getElementById('update-automatic-acceptance-form-<?php echo e($event->id); ?>').submit();">
-                            <span class="text-gray-900 whitespace-no-wrap">
-                                <?php if($event->automatic_acceptance == 1): ?>
-                                <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-indigo-300">Yes</span>
-                                <?php else: ?>
-                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-indigo-300">No</span>
-                                <?php endif; ?>
-                            </span>
-                        </button>
-                    </td>
-                </form>
-                <form id="update-status-published-form-<?php echo e($event->id); ?>" method="POST" action="<?php echo e(route('events.updateStatusPublished', $event->id)); ?>" style="display: none;">
-                    <?php echo csrf_field(); ?>
-                    <?php echo method_field('put'); ?>
-                    <td class="px-6 py-4 text-center">
-                        <button class="hover:text-blue-500" onclick="event.preventDefault(); document.getElementById('update-status-published-form-<?php echo e($event->id); ?>').submit();">
-                            <span class="text-gray-900 whitespace-no-wrap">
-                                <?php if($event->status_published == 1): ?>
-                                <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-indigo-300">Accepted</span>
-                                <?php else: ?>
-                                <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-indigo-300">Refused</span>
-                                <?php endif; ?>
-                            </span>
-                        </button>
-                    </td>
-                </form>
-                <td class="px-6 py-4 text-center">
-                <div class="flex gap-5 px-6 py-4 justify-center">
-                <form action="<?php echo e(route('events.edit',$event->id)); ?>" method="get">
-                        <?php echo csrf_field(); ?>
-                          <button>
-                            <span class="material-symbols-outlined dark:hover:text-red-500 hover:text-red-500">
-                                edit
-                            </span>
-                        </button>
-                    </form>
-                    <form action="<?php echo e(route('events.destroy' ,$event->id)); ?>" method="post">
-                        <?php echo csrf_field(); ?>
-                        <?php echo method_field('delete'); ?>
-                          <button>
-                            <span class="material-symbols-outlined dark:hover:text-red-500 hover:text-red-500">
-                                delete
-                            </span>
-                        </button>
-                    </form>
+<main class="space-y-40 mb-10">
+    <div class="relative">
+        <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+            <div class="blur-[106px] h-64 bg-gradient-to-br from-indigo-600 to-purple-400 dark:from-blue-700"></div>
+            <div class="blur-[106px] h-64 bg-gradient-to-br from-indigo-600 to-purple-400 dark:to-indigo-600"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+            <div class="relative pt-36 ml-auto">
+                <div class="lg:w-2/3 text-center mx-auto">
+                    <h1 class="text-gray-900 dark:text-white  font-bold font-sans text-5xl md:text-6xl ">Experience
+                        Unforgettable Events with <span class="text-blue-900  dark:text-white">YouLink.</span></h1>
+                    <p class="mt-8 text-gray-700 dark:text-gray-300">YouLink is your premier destination for
+                        discovering, reserving, and experiencing a diverse range of unforgettable events.ensuring
+                        every moment becomes a cherished
+                        memory.</p>
+                    
+                    <div
+                        class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between">
+                        <div class="text-left">
+                            <h6 class="text-lg font-semibold text-gray-700 dark:text-white">Diverse Selection</h6>
+                        </div>
+                        <div class="text-left">
+                            <h6 class="text-lg font-semibold text-gray-700 dark:text-white">Trustworthy Platform
+                            </h6>
+                        </div>
+                        <div class="text-left">
+                            <h6 class="text-lg font-semibold text-gray-700 dark:text-white">Easy Reservation Process
+                            </h6>
+                        </div>
+                    </div>
                 </div>
-                </td>
-            </tr>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </tbody>
-    </table>
-</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="relative max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+            <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+                <div class="blur-[106px] h-64 bg-gradient-to-br from-indigo-200 to-purple-300 dark:from-blue-700">
+                </div>
+                <div class="blur-[106px] h-64 bg-gradient-to-r from-sky-100 to-purple-300 dark:to-indigo-600"></div>
+            </div>
+            <div class="mb-12 space-y-2 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Events & Happenings</h2>
+            </div>
+            
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div
+                        class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+                        <div class="relative overflow-hidden rounded-xl">
+                            <img src="<?php echo e(asset('storage/images/events/' . $event->image)); ?>" alt="art cover" loading="lazy"
+                                width="1000" height="667"
+                                class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
+                        </div>
+                        <a href="login" class="mt-6 relative">
+                            <h3 class="text-2xl mb-2 font-semibold text-gray-800 dark:text-white">
+                                <?php echo e($event->title); ?>
 
+                            </h3>
+                            <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined">
+                                    pin_drop
+                                </span>location : <?php echo e($event->location); ?>
+
+                            </p>
+                            <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined">
+                                    calendar_month
+                                </span>date : <?php echo e($event->date); ?>
+
+                            </p>
+                            <div class="flex gap-4 mb-8">
+                                <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                                    <span class="material-symbols-outlined">
+                                        payments
+                                    </span> 11
+                                </p>
+                                <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                                    <span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span> : <?php echo e($event->availableSeats); ?>
+
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+            
+            
+        </div>
+    </div>
+    </div>
+
+    
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.bdeDash', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/events/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.book', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/events/index.blade.php ENDPATH**/ ?>

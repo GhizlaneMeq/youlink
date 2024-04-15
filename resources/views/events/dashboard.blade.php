@@ -1,4 +1,4 @@
-@extends('layouts.bdeDash')
+{{-- @extends('layouts.bdeDash')
 
 @section('content')
     <!-- STATISTICS -->
@@ -114,3 +114,4 @@
         </main>
     </div>
 @endsection
+ --}}

@@ -68,15 +68,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 });
 
 Route::group(['prefix' => 'bde', 'as' => 'bde.', 'namespace' => 'App\Http\Controllers\Bde'], function () {
-
     Route::resource('events', 'EventController');
-
-
-
+    Route::resource('event-reservations', 'EventReservationController');
 });
 
 Route::resource('/books', bookController::class);
 Route::resource('/items', ItemController::class);
+Route::resource('/events', EventController::class);
 
 
 

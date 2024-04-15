@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventReservation;
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,7 @@ class EventController extends Controller
 
     public function index()
     {
+        $users=User::all();
         $events = Event::latest()->get();
 
         // Get the count of events created by the authenticated user
@@ -26,7 +28,7 @@ class EventController extends Controller
         // Get the count of reservations made by the authenticated user
         $reservationCount = EventReservation::where('user_id', Auth::id())->count();
 
-        return view('events.dashboard', compact('eventCount', 'reservationCount','events'));
+        return view('events.index', compact('eventCount', 'reservationCount','events','users'));
     }
 
     public function create()

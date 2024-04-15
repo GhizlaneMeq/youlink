@@ -89,9 +89,9 @@
                   </ul>
                 </li>
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
-                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>Team</a></li>
+                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>events</a></li>
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
-                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>About</a></li>
+                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>Journey Hub</a></li>
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
                     class='hover:text-blue-500 font-bold text-white text-[15px] block'>Contact</a></li>
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'

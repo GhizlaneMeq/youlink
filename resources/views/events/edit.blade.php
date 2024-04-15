@@ -1,4 +1,4 @@
-@extends('layouts.bdeDash')
+{{-- @extends('layouts.bdeDash')
 
 @section('content')
 <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
@@ -106,3 +106,4 @@
     </div>
 </div>
 @endsection
+ --}}

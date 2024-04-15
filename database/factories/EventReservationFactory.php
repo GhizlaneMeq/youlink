@@ -1,32 +1,34 @@
 <?php
-
 namespace Database\Factories;
 
-use App\Models\Event;
-use App\Models\User;
+use App\Models\EventReservation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EventReservation>
- */
 class EventReservationFactory extends Factory
 {
     /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = EventReservation::class;
+
+    /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'event_id' => Event::factory(),
-            'user_id' => User::factory(),
+            'event_id' => function () {
+                return \App\Models\Event::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return \App\Models\User::factory()->create()->id;
+            },
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
-            'comment' => $this->faker->paragraph(),
+            'comment' => $this->faker->sentence,
         ];
     }
 }
-
-
-
-

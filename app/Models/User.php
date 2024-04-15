@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,11 +11,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -28,28 +22,14 @@ class User extends Authenticatable
         'address',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
-
-
-    
 
     public function roles()
     {
@@ -57,9 +37,9 @@ class User extends Authenticatable
     }
     
     public function hasRole($roleName)
-     {
-         return $this->roles->contains('name', $roleName);
-     }
+    {
+        return $this->roles->contains('name', $roleName);
+    }
 
     public function books()
     {
@@ -71,36 +51,22 @@ class User extends Authenticatable
         return $this->hasMany(BookReservation::class);
     }
 
-
-    public function requestedExchanges()
-    {
-        return $this->hasMany(Exchange::class, 'requester_id');
-    }
-
-    public function offeredExchanges()
-    {
-        return $this->hasMany(Exchange::class, 'offerer_id');
-    }
-
     public function events()
     {
         return $this->hasMany(Event::class);
     }
 
-    public function EventReservations(){
+    public function reservations()
+    {
         return $this->hasMany(EventReservation::class);
     }
-
-
 
     protected static function boot()
     {
         parent::boot();
-    
+
         static::created(function ($user) {
-            $defaultRole = Role::where('name', 'user')->first();
-    
-            $user->roles()->attach($defaultRole);
+            $user->roles()->attach(Role::where('name', 'user')->first());
         });
     }
 }
