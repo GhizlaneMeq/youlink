@@ -22,4 +22,17 @@ class EventReservation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($reservation) {
+            $event = $reservation->event;
+            if ($event) {
+                $event->decrement('availableSeats');
+            }
+        });
+    }
 }

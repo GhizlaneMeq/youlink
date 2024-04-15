@@ -104,7 +104,7 @@
 
                         <?php if($event->availableSeats != 0): ?>
                             <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                                <form action="<?php echo e(route('events.reserve', $event->id)); ?>" method="POST">
+                                <form action="<?php echo e(route('user.events.reserve', $event->id)); ?>" method="POST">
                                     <?php echo csrf_field(); ?>
                                     <button type="submit" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                                         Reserve

@@ -1,85 +1,90 @@
-{{-- @extends('layouts.bdeDash')
+@extends('layouts.book')
 
-@section('content')
-<div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
-    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
-            <div class="max-w-md mx-auto">
-                <form action="{{ route('bde.events.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="flex items-center space-x-5">
-                        <div class="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">i</div>
-                        <div class="block pl-2 font-semibold text-xl self-text-gray-700">
-                            <h2 class="leading-relaxed">Create an Event</h2>
-                        </div>
-                    </div>
-                    <div class="divide-y divide-gray-200">
-                        <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                            <div class="flex flex-col">
-                                <label class="leading-loose">Event Profile</label>
-                                <input type="file" name="image" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title">
-                            </div>
-                            @error('image')
-                            <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                            <div class="flex flex-col">
-                                <label class="leading-loose">Event Title</label>
-                                <input type="text" name="title" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title">
-                            </div>
-                            @error('title')
-                            <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                            <div class="flex flex-col">
-                                <label class="leading-loose">Event Location</label>
-                                <input type="text" name="location" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event location">
-                            </div>
-                            @error('location')
-                            <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                            <div class="flex flex-col">
-                                <label class="leading-loose">Event Category</label>
-                                <input type="text" name="event_category" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event category">
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col">
-                                    <label class="leading-loose">date</label>
-                                    <div class="relative focus-within:text-gray-600 text-gray-400">
-                                        <input type="date" name="date" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="date">
-                                        @error('date')
-                                        <span class="text-red-400">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="flex flex-col">
-                                    <label class="leading-loose">Available seats</label>
-                                    <div class="relative focus-within:text-gray-600 text-gray-400">
-                                        <input type="number" name="available_seats" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Available seats">
-                                        @error('available_seats')
-                                        <span class="text-red-400">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-col">
-                                <label class="leading-loose">Event Description</label>
-                                <input type="text" name="description" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event description">
-                            </div>
-                            @error('description')
-                            <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="pt-4 flex items-center space-x-4">
-                            <a href="{{ route('events.index') }}" class="block text-gray-900 px-4 py-3 rounded-md focus:outline-none flex justify-center items-center w-full">
-                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                Cancel
-                            </a>
-                            <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Create</button>
-                        </div>
-                    </div>
-                </form>
+@section('main')
+    @if (session('error'))
+        <div id="alert-3"
+            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Error</span>
+            <div class="ms-3 text-sm font-medium">
+                {{ session('error') }}
             </div>
+            <button type="button"
+                class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    @endif
+    @if (session('success'))
+        <div id="alert-3"
+            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Error</span>
+            <div class="ms-3 text-sm font-medium">
+                {{ session('success') }}
+            </div>
+            <button type="button"
+                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    @endif
+    <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-600 font-semibold dark:text-gray-500">
+                My Reservations
+            </p>
         </div>
     </div>
-</div>
+
+    <div class="my-4 rounded bg-gray-50 dark:bg-gray-800">
+        <div class="relative flex p-10 flex-col items-center gap-4 overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-300  dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Event</th>
+                        <th scope="col" class="px-6 py-3">Date</th>
+                        <th scope="col" class="px-6 py-3">Location</th>
+                        <!-- Add more table headers as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($eventReservations as $reservation)
+                        <tr class="odd:bg-gray-100 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            <td class="px-6 py-4">{{ $reservation->event->title }}</td>
+                            <td class="px-6 py-4">{{ $reservation->event->date }}</td>
+                            <td class="px-6 py-4">{{ $reservation->event->location }}</td>
+                            <!-- Add more table data as needed -->
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-center">No reservations found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
- --}}

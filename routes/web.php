@@ -10,6 +10,7 @@ use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\Home\bookController;
 use App\Http\Controllers\Home\EventController;
 use App\Http\Controllers\Home\ItemController;
+use App\Http\Controllers\User\EventReservationController;
 use App\Http\Controllers\User\FoundItemController;
 use App\Http\Controllers\User\LostItemController;
 use Illuminate\Support\Facades\Route;
@@ -40,13 +41,7 @@ Route::get('/password/reset', [ForgotPasswordController::class, 'showForgotPassw
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
-/* Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-Route::get('/journeys', [JourneyController::class, 'index'])->name('journeys.index');
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
-Route::get('/lost-and-found', [LostAndFoundController::class, 'index'])->name('lost-and-found.index');
- */
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin'], function () {
 
@@ -64,6 +59,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Route::get('/outgoing-requests', 'ExchangeController@outgoingRequests')->name('exchanges.outgoingRequests');
     Route::put('/exchanges/{exchange}', 'ExchangeController@updateStatus')->name('exchanges.updateStatus');
     Route::post('/events/{event}/reserve', [EventReservationController::class, 'reserve'])->name('events.reserve');
+    Route::get('/reservations', [EventReservationController::class, 'showReservations'])->name('reservations');
 
 
 

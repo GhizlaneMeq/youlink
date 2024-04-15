@@ -49,6 +49,7 @@
 
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($events as $event)
+                <a href="{{ route('events.show', ['event' => $event->id]) }}">
                 <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
                     <div class="relative overflow-hidden rounded-xl">
                         <img src="{{ asset('storage/images/events/' . $event->image) }}" alt="art cover" loading="lazy" width="1000" height="667" class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
@@ -66,9 +67,10 @@
                             </span>date : {{ $event->date }}
                         </p>
                     
-                    <a href="{{ route('events.show', ['event' => $event->id]) }}">See More</a>
+                    
 
                 </div>
+            </a>
                 @endforeach
             </div>
 
