@@ -17,7 +17,7 @@
                         discovering, reserving, and experiencing a diverse range of unforgettable events.ensuring
                         every moment becomes a cherished
                         memory.</p>
-                    
+
                     <div
                         class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between">
                         <div class="text-left">
@@ -46,52 +46,36 @@
             <div class="mb-12 space-y-2 text-center">
                 <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Events & Happenings</h2>
             </div>
-            
+
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($events as $event)
-                    <div
-                        class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-                        <div class="relative overflow-hidden rounded-xl">
-                            <img src="{{ asset('storage/images/events/' . $event->image) }}" alt="art cover" loading="lazy"
-                                width="1000" height="667"
-                                class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
-                        </div>
-                        <a href="login" class="mt-6 relative">
-                            <h3 class="text-2xl mb-2 font-semibold text-gray-800 dark:text-white">
-                                {{ $event->title }}
-                            </h3>
-                            <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                                <span class="material-symbols-outlined">
-                                    pin_drop
-                                </span>location : {{ $event->location }}
-                            </p>
-                            <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                                <span class="material-symbols-outlined">
-                                    calendar_month
-                                </span>date : {{ $event->date }}
-                            </p>
-                            <div class="flex gap-4 mb-8">
-                                <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                                    <span class="material-symbols-outlined">
-                                        payments
-                                    </span> 11
-                                </p>
-                                <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                                    <span class="material-symbols-outlined">
-                                        chair_alt
-                                    </span> : {{ $event->availableSeats }}
-                                </p>
-                            </div>
-                        </a>
+                <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+                    <div class="relative overflow-hidden rounded-xl">
+                        <img src="{{ asset('storage/images/events/' . $event->image) }}" alt="art cover" loading="lazy" width="1000" height="667" class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
                     </div>
                     
-                    @endforeach
+                        <h3 class="text-2xl mb-2 font-semibold text-gray-800 dark:text-white">
+                            {{ $event->title }}
+                        </h3>
+                        <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                            <span class="material-symbols-outlined">
+                            </span>location : {{ $event->location }}
+                        </p>
+                        <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                            <span class="material-symbols-outlined">
+                            </span>date : {{ $event->date }}
+                        </p>
+                    
+                    <a href="{{ route('events.show', ['event' => $event->id]) }}">See More</a>
+
+                </div>
+                @endforeach
             </div>
-            
-            
+
+
         </div>
     </div>
     </div>
 
-    
-@endsection
+
+    @endsection

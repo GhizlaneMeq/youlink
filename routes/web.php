@@ -63,6 +63,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Route::get('/incoming-requests', 'ExchangeController@incomingRequests')->name('exchanges.incomingRequests');
     Route::get('/outgoing-requests', 'ExchangeController@outgoingRequests')->name('exchanges.outgoingRequests');
     Route::put('/exchanges/{exchange}', 'ExchangeController@updateStatus')->name('exchanges.updateStatus');
+    Route::post('/events/{event}/reserve', [EventReservationController::class, 'reserve'])->name('events.reserve');
+
 
 
 });

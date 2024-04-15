@@ -21,18 +21,15 @@ class EventController extends Controller
     {
         $users=User::all();
         $events = Event::latest()->get();
-
-        // Get the count of events created by the authenticated user
         $eventCount = Event::where('user_id', Auth::id())->count();
-
-        // Get the count of reservations made by the authenticated user
         $reservationCount = EventReservation::where('user_id', Auth::id())->count();
-
         return view('events.index', compact('eventCount', 'reservationCount','events','users'));
     }
 
-    public function create()
+    
+
+    public function show(Event $event)
     {
-        return view('events.create');
+        return view('events.details', compact('event'));
     }
 }
