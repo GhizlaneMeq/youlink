@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>YouLink</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        nycd: ['Nothing You Could Do', 'cursive'],
+                    },
+                },
+            },
+        };
+    </script>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <?php echo app('Illuminate\Foundation\Vite')('resources/sass/app.scss'); ?>
 
@@ -49,10 +67,10 @@
                 </button>
               </div>
               <ul id="collapseMenu" class='lg:!flex max-lg:hidden max-lg:w-full lg:space-x-10 max-lg:space-y-3 max-lg:my-4'>
-                <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
+                <li class='max-lg: max-lg:py-2'><a href='/'
                     class='hover:text-blue-600 font-bold text-[15px] text-blue-500 block'>Home</a></li>
                 <li class='group max-lg: max-lg:py-2 relative'>
-                  <a href='javascript:void(0)'
+                  <a href='<?php echo e(route('books.index')); ?>'
                     class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>Book Swap<svg
                       xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='currentColor' class="ml-1 inline-block"
                       viewBox="0 0 24 24">
@@ -69,7 +87,7 @@
                 </ul>
                 </li>
                 <li class='group max-lg: max-lg:py-2 relative'>
-                  <a href='javascript:void(0)'
+                  <a href='<?php echo e(route('items.index')); ?>'
                     class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>Discovery Depot<svg
                       xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='currentColor' class="ml-1 inline-block"
                       viewBox="0 0 24 24">
@@ -80,9 +98,9 @@
                   </a>
                   <ul
                     class='absolute hidden group-hover:block max-lg:border max-lg:border-gray-500 shadow-lg bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px]'>
-                    <li class=' py-2'><a href='javascript:void(0)'
+                    <li class=' py-2'><a href='<?php echo e(route('items.index')); ?>'
                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>All Items</a></li>
-                    <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Lost Items:</a></li>
+                    <li class=' py-2'><a href='<?php echo e(route('items.index')); ?>' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Lost Items:</a></li>
                     <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Found Items</a></li>
                     <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Lost Item </a></li>
                     <li class=' py-2'><a href='javascript:void(0)' class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Found Item </a></li>
