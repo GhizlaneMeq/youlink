@@ -22,6 +22,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
+            if ($user->first_login) {
+                return redirect()->route('password.change');
+            }
+
             if ($user->hasRole('admin')) {
                 return redirect()->route('admin.users.index');
             }

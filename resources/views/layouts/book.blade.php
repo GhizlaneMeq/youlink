@@ -66,6 +66,10 @@
                   </svg>
                 </button>
               </div>
+              <form method="POST" action="{{ route('logout') }}" class="ml-7">
+                @csrf
+                <button type="submit" class="hover:text-blue-500 font-bold text-white text-[15px] block">Logout</button>
+            </form>
               <ul id="collapseMenu" class='lg:!flex max-lg:hidden max-lg:w-full lg:space-x-10 max-lg:space-y-3 max-lg:my-4'>
                 <li class='max-lg: max-lg:py-2'><a href='/'
                     class='hover:text-blue-600 font-bold text-[15px] text-blue-500 block'>Home</a></li>
@@ -130,6 +134,7 @@
                 <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
                     class='hover:text-blue-500 font-bold text-white text-[15px] block'>Source</a></li>
               </ul>
+              
             </div>
         </header>
         @yield('main')

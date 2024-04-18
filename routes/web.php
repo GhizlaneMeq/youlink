@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticateController;
 use App\Http\Controllers\Auth\AuthenticatedController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\Home\bookController;
@@ -25,10 +26,11 @@ Route::get('/password/reset', [ForgotPasswordController::class, 'showForgotPassw
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::get('/password/change', [PasswordController::class, 'edit'])->name('password.change');
+Route::put('/password/change', [PasswordController::class, 'update'])->name('password.update');
 
-// Authenticated routes
 Route::middleware(['auth'])->group(function () {
-    // All routes except /login and /welcome
+    
     Route::group(['except' => ['login', 'welcome']], function () {
         Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admin'], function () {
             Route::resource('book_categories', 'BookCategoryController');
