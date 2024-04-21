@@ -39,8 +39,11 @@
     <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800">
         <div class="flex items-center justify-between p-3">
             <div class="flex items-center space-x-2">
+                <img src="{{url('/storage/images/users/'.$book->user->avatar) }} " alt=""
+                    class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300">
+                
                 <div class="-space-y-1">
-                    <h2 class="text-sm font-semibold leading-none">{{ Auth::user()->name }}</h2>
+                    <h2 class="text-sm font-semibold leading-none">{{ $book->user->name }}</h2>
                     <span class="inline-block text-xs leading-none dark:text-gray-600">Somewhere</span>
                 </div>
             </div>

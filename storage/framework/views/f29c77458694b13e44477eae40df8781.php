@@ -173,7 +173,7 @@
         <div class="flex items-center justify-between p-3">
             <div class="flex items-center space-x-2">
 
-                 <img src="<?php echo e(url('/storage/image/'.$book->image)); ?> " alt=""
+                 <img src="<?php echo e(url('/storage/images/users/'.Auth::user()->avatar)); ?> " alt=""
                     class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300">
                 
                 <div class="-space-y-1">
