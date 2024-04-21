@@ -58,7 +58,7 @@
         </td>
         <td class="px-6 py-4 text-sm">
           <div class="flex items-center cursor-pointer">
-            <img src='https://readymadeui.com/profile_4.webp' class="w-7 h-7 rounded-full shrink-0" />
+            <img src='<?php echo e(asset('Storage/images/users/'.$exchange->receiver->avatar)); ?>' class="w-7 h-7 rounded-full shrink-0" />
             <div class="ml-2">
               <p class="text-sm text-black"><?php echo e($exchange->receiver->name); ?></p>
             </div>

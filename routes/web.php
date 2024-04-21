@@ -76,7 +76,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/events', EventController::class);
     Route::resource('/users', UserController::class);
 
-
+    Route::get('/lost-items', [ItemController::class, 'lostItems'])->name('lost_items');
+    Route::get('/found-items', [ItemController::class, 'foundItems'])->name('found_items');
     
 
 });

@@ -92,6 +92,7 @@ public function search(Request $request)
      */
     public function show(Book $book)
     {
+        
         return view("bookSwap.details",compact('book'));
     }
 
