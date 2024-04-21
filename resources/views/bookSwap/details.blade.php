@@ -1,6 +1,8 @@
 @extends('layouts.book')
 
 @section('main')
+
+
 <div class="grid grid-cols-2 pt-32 pl-10">
     <a href="#"
         class="flex flex-col items-center md:flex-row md:max-w-xl">
@@ -13,10 +15,7 @@
                 <span class="text-xl font-bold">Author: </span>
                 <span class="text-xl">{{ $book->author }}</span>
             </div>
-            <div class="flex gap-4">
-                <span class="text-xl font-bold">Publication year: </span>
-                <span class="text-xl">{{ $book->publication_year }}</span>
-            </div>
+            
             <div class="flex gap-4">
                 <span class="text-xl font-bold">Description: </span>
                 <span class="text-xl">{{ $book->description }}</span>

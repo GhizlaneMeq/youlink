@@ -34,19 +34,50 @@
     <p>There are no available books.</p>
 </div>
 <?php else: ?>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+<form action="<?php echo e(route('books.search')); ?>" method="POST" class="flex flex-col md:flex-row gap-3">
+    <?php echo csrf_field(); ?> <!-- Add CSRF token -->
+    <div class="flex">
+        <!-- Search input -->
+        <input type="text" name="search" placeholder="Search for a book" id="searchInput"
+            class="w-full md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500"
+            value="<?php echo e(request()->input('search')); ?>">
+        
+        <!-- Search button -->
+        <button type="submit" class="bg-sky-500 text-white rounded-r px-2 md:px-3 py-0 md:py-1">Search</button>
+    </div>
+    
+    <!-- Category filter -->
+    <select id="category" name="category"
+    class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider" onchange="filterByCategory(this.value)">
+    <option value="" selected>All Categories</option>
+    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <option value="<?php echo e($category->id); ?>" <?php echo e(request()->input('category') == $category->id ? 'selected' : ''); ?>>
+            <?php echo e($category->name); ?>
+
+        </option>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+</select>
+
+
+</form>
+
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8" id="book-list">
+    
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8" id="book-listt">
     <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800">
+    <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800 gallery-item" data-category="<?php echo e($book->book_category_id); ?>">
         <div class="flex items-center justify-between p-3">
-            <div class="flex items-center space-x-2">
+            <a href="<?php echo e(route('users.show',$book->user_id)); ?>" class="flex items-center space-x-2">
                 <img src="<?php echo e(url('/storage/images/users/'.$book->user->avatar)); ?> " alt=""
                     class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300">
                 
                 <div class="-space-y-1">
                     <h2 class="text-sm font-semibold leading-none"><?php echo e($book->user->name); ?></h2>
-                    <span class="inline-block text-xs leading-none dark:text-gray-600">Somewhere</span>
                 </div>
-            </div>
+            </a>
             <div class="flex flex-shrink-0 self-center">
                 <button class="options-button" title="Open options" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5 fill-current">
@@ -135,6 +166,80 @@
     function closeExchangeModal() {
         document.getElementById('exchangeModal').classList.add('hidden');
     }
+
+</script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', async function() {
+    var searchInput = document.getElementById('searchInput');
+    var eventsList = document.getElementById('book-list');
+    var eventsList1 = document.getElementById('book-listt');
+
+    searchInput.addEventListener('input', async function() {
+        var query = this.value;
+
+        try {
+            const response = await fetch(`/books/search?query=${query}`);
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            eventsList1.style.display = 'none';
+            eventsList.innerHTML = ''; // Clear previous search results
+
+            // Iterate over each book in the received data and create HTML cards
+            data.books.data.forEach(book => {
+                const eventCard = `
+                    <div class="rounded-md shadow-md sm:w-96 dark:bg-gray-50 dark:text-gray-800 gallery-item" data-category="${book.book_category_id}">
+                        <div class="flex items-center justify-between p-3">
+                            <h2 class="text-sm font-semibold leading-none">${book.title}</h2>
+                        </div>
+                        <img src="/storage/images/books/${book.image}" alt="Book Image" class="object-cover object-center w-full h-72 dark:bg-gray-500">
+                        <div class="p-3">
+                            <div class="flex flex-wrap items-center pt-3 pb-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base font-semibold">${book.title}</span>
+                                    <span class="text-sm"> by <span class="font-semibold">${book.author}</span></span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="text-sm">${book.description}</p>
+                            </div>
+                            <div class="mt-4">
+                                <button onclick="openExchangeModal('${book.id}', '${book.user_id}')" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600">Exchange</button>
+                            </div>
+                        </div>
+                    </div>`;
+
+                // Append the eventCard HTML to eventsList
+                eventsList.insertAdjacentHTML('beforeend', eventCard);
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
+
+//filter
+function filterByCategory(categoryId) {
+    var events = document.querySelectorAll('.gallery-item');
+
+    events.forEach(function(event) {
+        var eventCategory = event.getAttribute('data-category');
+
+        if (!categoryId || eventCategory == categoryId) {
+            event.style.display = 'block';
+        } else {
+            event.style.display = 'none';
+        }
+    });
+}
+
 </script>
 <?php $__env->stopSection(); ?>
 

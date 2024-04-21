@@ -70,8 +70,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    Route::get('/books/search', [bookController::class, 'search'])->name('books.search');
     Route::resource('/books', bookController::class);
     Route::resource('/items', ItemController::class);
     Route::resource('/events', EventController::class);
     Route::resource('/users', UserController::class);
+
+
+    
+
 });

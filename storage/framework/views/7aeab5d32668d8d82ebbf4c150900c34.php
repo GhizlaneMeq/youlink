@@ -1,6 +1,8 @@
 
 
 <?php $__env->startSection('main'); ?>
+
+
 <div class="grid grid-cols-2 pt-32 pl-10">
     <a href="#"
         class="flex flex-col items-center md:flex-row md:max-w-xl">
@@ -13,10 +15,7 @@
                 <span class="text-xl font-bold">Author: </span>
                 <span class="text-xl"><?php echo e($book->author); ?></span>
             </div>
-            <div class="flex gap-4">
-                <span class="text-xl font-bold">Publication year: </span>
-                <span class="text-xl"><?php echo e($book->publication_year); ?></span>
-            </div>
+            
             <div class="flex gap-4">
                 <span class="text-xl font-bold">Description: </span>
                 <span class="text-xl"><?php echo e($book->description); ?></span>
@@ -107,7 +106,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Reserve
+                    exchange
                     </button>
                 </form>
             </div>
