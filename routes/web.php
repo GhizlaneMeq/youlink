@@ -13,6 +13,7 @@ use App\Http\Controllers\Home\ItemController;
 use App\Http\Controllers\User\EventReservationController;
 use App\Http\Controllers\User\FoundItemController;
 use App\Http\Controllers\User\LostItemController;
+use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +31,12 @@ Route::get('/password/change', [PasswordController::class, 'edit'])->name('passw
 Route::put('/password/change', [PasswordController::class, 'update'])->name('password.update');
 
 Route::middleware(['auth'])->group(function () {
+
+
+    
+    
+    
+
     
     Route::group(['except' => ['login', 'welcome']], function () {
         Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admin'], function () {
@@ -39,6 +46,14 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User'], function () {
+            Route::get('/profile', 'ProfileController@index')->name('profile');
+            Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('update.avatar');
+            Route::post('/description', [ProfileController::class, 'updateDescription'])->name('update.description');
+            Route::post('/birthdate', [ProfileController::class, 'updateBirthDate'])->name('update.birthdate');
+            Route::post('/gender', [ProfileController::class, 'updateGender'])->name('update.gender');
+            Route::post('/address', [ProfileController::class, 'updateAddress'])->name('update.address');
+            Route::post('/phone', [ProfileController::class, 'updatePhone'])->name('update.phone');
+        
             Route::resource('books', 'BookController');
             Route::resource('exchanges', 'ExchangeController');
             Route::get('/incoming-requests', 'ExchangeController@incomingRequests')->name('exchanges.incomingRequests');
@@ -47,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/events/{event}/reserve', [EventReservationController::class, 'reserve'])->name('events.reserve');
             Route::get('/reservations', [EventReservationController::class, 'showReservations'])->name('reservations');
         });
+        
 
         Route::group(['prefix' => 'bde', 'as' => 'bde.', 'namespace' => 'App\Http\Controllers\Bde'], function () {
             Route::resource('events', 'EventController');

@@ -21,6 +21,12 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('address')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('github')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
