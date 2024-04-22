@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ModeratorController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -35,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('book_categories', 'BookCategoryController');
         Route::resource('users', 'UserController');
         Route::resource('books', 'BookController');
+        Route::resource('moderators', 'ModeratorController');
+       
     });
     Route::group(['prefix' => 'bde', 'as' => 'bde.', 'namespace' => 'App\Http\Controllers\Bde'], function () {
         Route::resource('events', 'EventController');
