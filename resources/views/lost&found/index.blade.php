@@ -1,50 +1,64 @@
 @extends('layouts.book')
 
 @section('main')
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    @foreach ($items as $item)
-      <div class="relative flex flex-col rounded-xl bg-gray-800 text-white shadow-md mb-6">
-        <div class="flex items-center justify-between p-3">
-            <div class="flex items-center space-x-2">
-                 <img src="" alt=""
-                    class="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300">
-                <div class="-space-y-1">
-                    <h2 class="text-sm font-semibold leading-none">{{ Auth::user()->name }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-t-xl bg-blue-gray-700 shadow-lg">
-          <img src="" alt="">
-        </div>
-        <div class="p-6">
-          <h5 class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal">
-            {{ $item->title }}
-          </h5>
-          <p class="block font-sans text-base font-light leading-relaxed">
-            {{ $item->description }}
-          </p>
-          <p class="block mt-2 font-sans text-sm @if ($item->status === 'lost') text-red-600 @elseif ($item->status === 'found') text-yellow-600 @endif">
-            Status: {{ ucfirst($item->status) }}
-          </p>
-        </div>
-        <div class="p-6 pt-0">
-            <a href="{{ route('items.show', $item) }}"
-              class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300">See
-              More </a>
-              @if ($item->status === 'found')
-                  <form action="{{ route('items.report_ownership', $item) }}" method="POST">
-                      @csrf
-                      <button type="submit">Report Ownership</button>
-                  </form>
-              @elseif ($item->status === 'lost')
-                  <form action="{{ route('items.report_finding', $item) }}" method="POST">
-                      @csrf
-                      <button type="submit">Report Finding</button>
-                  </form>
-              @endif
+div class="relative bg-gradient-to-b from-red-500 to-red-600">
+<div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 py-24">
+    <div class="text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-bold">Lost Items</h1>
+        <p class="mt-4 text-lg md:text-xl">Explore lost items and help reunite them with their owners.</p>
+    </div>
+</div>
+</div>
 
+
+
+{{-- Hero section for found items --}}
+<div class="relative bg-gradient-to-b from-green-500 to-green-600">
+<div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 py-24">
+    <div class="text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-bold">Found Items</h1>
+        <p class="mt-4 text-lg md:text-xl">Discover found items and help their owners reclaim them.</p>
+    </div>
+</div>
+</div>
+    <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 mt-16">
+        <div class="mb-12 space-y-2 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Lost Items</h2>
         </div>
-      </div>
-    @endforeach
-  </div>
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            @foreach ($items as $item)
+                <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+                    <div class="relative overflow-hidden rounded-xl">
+                        <img src="{{ asset('storage/images/items/' . $item->picture) }}" alt="item image" loading="lazy" width="1000" height="667" class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
+                    </div>
+                    <h3 class="text-2xl mb-2 font-semibold text-gray-800 dark:text-white">
+                        {{ $item->title }}
+                    </h3>
+                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                        Description: {{ $item->description }}
+                    </p>
+                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                        Location: {{ $item->location }}
+                    </p>
+                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
+                        Status: {{ ucfirst($item->status) }}
+                    </p>
+                    <div class="flex justify-center mt-4">
+                        <a href="{{ route('items.show', $item) }}" class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300">See More</a>
+                        @if ($item->status === 'found')
+                            <form action="{{ route('user.items.report_ownership', $item) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="ml-2 px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-red-600 hover:bg-red-700 active:bg-red-600 transition-all duration-300">Report Ownership</button>
+                            </form>
+                        @elseif ($item->status === 'lost')
+                            <form action="{{ route('user.items.report_finding', $item) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="ml-2 px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-green-600 hover:bg-green-700 active:bg-green-600 transition-all duration-300">Report Finding</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 @endsection

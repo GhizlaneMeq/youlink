@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.adminDash')
 
 @section('content')
 <div class="container mx-auto">

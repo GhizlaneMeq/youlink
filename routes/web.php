@@ -59,9 +59,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reservations', [EventReservationController::class, 'showReservations'])->name('reservations');
 
 
-        Route::get('/lost-items/create', [LostItemController::class, 'create'])->name('createLostItem');
-        Route::post('/lost-items', [LostItemController::class, 'store'])->name('storeLostItem');
-        Route::post('found-items', [FoundItemController::class, 'store'])->name('found-items.store');
+        Route::get('/lost-items/create', 'ItemController@createLostItem')->name('createLostItem');
+        Route::get('/found-items/create', 'ItemController@createFoundItem')->name('createFoundItem');
+        Route::post('/lost-items', 'ItemController@storeLostItem')->name('storeLostItem');
+        Route::post('found-items', 'ItemController@storeFoundItem')->name('storeFoundItem');
         Route::post('/items/{item}/report-ownership', [ItemController::class, 'reportOwnership'])->name('items.report_ownership');
         Route::get('/items/{item}/report-finding', [ItemController::class, 'reportFindingForm'])->name('items.report_finding_form');
         Route::post('/items/{item}/report-finding', [ItemController::class, 'reportFinding'])->name('items.report_finding');

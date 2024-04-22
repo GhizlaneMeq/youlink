@@ -35,12 +35,12 @@
               class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300">See
               More </a>
               <?php if($item->status === 'found'): ?>
-                  <form action="<?php echo e(route('items.report_ownership', $item)); ?>" method="POST">
+                  <form action="<?php echo e(route('user.items.report_ownership', $item)); ?>" method="POST">
                       <?php echo csrf_field(); ?>
                       <button type="submit">Report Ownership</button>
                   </form>
               <?php elseif($item->status === 'lost'): ?>
-                  <form action="<?php echo e(route('items.report_finding', $item)); ?>" method="POST">
+                  <form action="<?php echo e(route('user.items.report_finding', $item)); ?>" method="POST">
                       <?php echo csrf_field(); ?>
                       <button type="submit">Report Finding</button>
                   </form>

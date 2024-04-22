@@ -27,33 +27,70 @@ class ItemController extends Controller
     }
 
 
+    public function createFoundItem(){
+        return view('user.lostFound.createFoundItem');
+    }
+
+    public function createLostItem(){
+        return view('user.lostFound.createLostItem');
+    }
+
+
     public function storeFoundItem(StoreFoundItemRequest $request)
     {
-        Item::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'category' => $request->category,
-            'location' => $request->location,
-            'dateFound' => $request->dateFound,
-            'status' => 'found', 
-            'user_id' => 1, 
-        ]);
 
+
+        if ($request->hasFile('picture')) {
+            $image = $request->file('picture');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = $image->storeAs('public/images/items', $imageName);
+        
+        }
+        // Get the file name and store it
+    
+        // Create a new found item
+        $item = new Item();
+        $item->title = $request->title;
+        $item->description = $request->description;
+        $item->category = $request->category;
+        $item->location = $request->location;
+        $item->dateFound = $request->dateFound;
+        $item->status = 'found';
+        $item->creator_id = $request->user_id;
+        $item->picture = $imageName;
+    
+        // Save the item
+        $item->save();
+    
         return redirect()->back()->with('success', 'Found item added successfully!');
     }
+    
+    
 
 
     public function storeLostItem(StoreLostItemRequest $request)
-    {
-        Item::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'location' => $request->location,
-            'dateLost' => $request->dateLost,
-            'status' => 'lost', 
-            'user_id' => 1, 
-        ]);
-
-        return redirect()->back()->with('success', 'Lost item added successfully!');
+{
+    if ($request->hasFile('picture')) {
+        $image = $request->file('picture');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $imagePath = $image->storeAs('public/images/items', $imageName);
+    } else {
+        $imageName = null;
     }
+
+    $item = new Item();
+    $item->title = $request->title;
+    $item->description = $request->description;
+    $item->category = $request->category;
+    $item->location = $request->location;
+    $item->dateLost = $request->dateLost;
+    $item->status = 'lost';
+    $item->creator_id = auth()->id();
+    $item->picture = $imageName;
+
+    $item->save();
+
+    return redirect()->back()->with('success', 'Lost item added successfully!');
+}
+
 }

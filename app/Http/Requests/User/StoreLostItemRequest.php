@@ -23,10 +23,11 @@ class StoreLostItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'dateLost' => 'required|date',
+            'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
+            'location' => 'required|string|max:255',
+            'dateLost' => 'nullable|date',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

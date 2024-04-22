@@ -23,10 +23,12 @@ class StoreFoundItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:1000',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
             'location' => 'required|string|max:255',
-            'dateFound' => 'required|date',
+            'dateFound' => 'nullable|date',
+            'user_id' =>'required|integer'
         ];
     }
 }
