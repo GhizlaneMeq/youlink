@@ -8,6 +8,24 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public function index()
+    {
+        $events = Event::all();
+        return view('admin.events', compact('events'));
+    }
+
+
+    public function update(Request $request, Event $event)
+{
+    $request->validate([
+        'status' => 'required|in:confirmed,cancelled',
+    ]);
+
+    $event->status = $request->status;
+    $event->save();
+
+    return redirect()->back()->with('status', 'Event status updated successfully.');
+}
     public function accept(Event $event)
     {
         $event->update(['status' => 'confirmed']);

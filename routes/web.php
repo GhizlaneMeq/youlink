@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', 'UserController');
         Route::resource('books', 'BookController');
         Route::resource('moderators', 'ModeratorController');
+        Route::resource('events', 'EventController');
        
     });
     Route::group(['prefix' => 'bde', 'as' => 'bde.', 'namespace' => 'App\Http\Controllers\Bde'], function () {

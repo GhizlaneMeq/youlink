@@ -68,8 +68,8 @@
 
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <a href="<?php echo e(route('admin.users.edit', $moderator)); ?>" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <form action="<?php echo e(route('admin.users.destroy', $moderator)); ?>" method="POST" class="inline">
+                        <a href="<?php echo e(route('admin.moderator.edit', $moderator)); ?>" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        <form action="<?php echo e(route('admin.users.moderator', $moderator)); ?>" method="POST" class="inline">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
                             <button type="submit" class="ml-2 text-red-600 hover:text-red-900">Delete</button>
