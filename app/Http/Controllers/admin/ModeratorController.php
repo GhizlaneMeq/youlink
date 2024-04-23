@@ -17,11 +17,13 @@ class ModeratorController extends Controller
     public function index()
     {
         // Retrieve users with the role "moderator"
+        $users = User::all();
+
         $moderators = User::whereHas('roles', function ($query) {
             $query->where('name', 'moderator');
         })->get();
 
-        return view('admin.moderator.index',compact('moderators'));
+        return view('admin.moderator.index',compact('moderators','users'));
     }
     public function create()
     {

@@ -10,6 +10,7 @@ class bdeController extends Controller
 {
     public function index(){
         $bdes=User::all();
-        return view('admin.bde.index', compact('bdes'));
+        $users=User::all();
+        return view('admin.bde.index', compact('bdes', 'users'));
     }
 }

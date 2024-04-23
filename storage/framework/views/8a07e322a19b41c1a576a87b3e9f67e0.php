@@ -1,6 +1,8 @@
 
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
 <div class="w-full">
     <!-- Tab Buttons -->
     <div class="bg-gray-800 p-2 rounded-t-lg w-full">
@@ -57,11 +59,112 @@
     </div>
     <div id="tab2" class="p-4 tab-content bg-gray-900 shadow-md rounded-lg hidden">
         <h2 class="text-2xl font-semibold mb-2 text-blue-300">Sélectionner BDE</h2>
-        <!-- Sélectionner un BDE existant parmi une liste -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header"><?php echo e(__('Select Existing BDE')); ?></div>
+    
+                <div class="card-body">
+                    <!-- Form to select existing BDE -->
+                    <form method="POST" action="<?php echo e(route('admin.bde.store')); ?>">
+                        <?php echo csrf_field(); ?>
+    
+                        <!-- Custom-styled select dropdown -->
+                        <div class="relative">
+                            <select name="user_ids[]" id="user_ids" multiple class="w-full px-3 py-2 border rounded-md focus:outline-none  text-gray-300 bg-gray-700 border-gray-600 focus:border-blue-500">
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <!-- Dropdown arrow icon -->
+                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                <svg class="h-4 w-4 fill-current text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M15 9a5 5 0 11-10 0 5 5 0 0110 0zM5 9a1 1 0 112 0 1 1 0 01-2 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <?php $__errorArgs = ['user_ids'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="text-danger"><?php echo e($message); ?></span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+    
+                        <button type="submit" class="btn btn-primary">Select BDE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <div id="tab3" class="p-4 tab-content bg-gray-900 shadow-md rounded-lg hidden">
-        <h2 class="text-2xl font-semibold mb-2 text-blue-300">Créer BDE</h2>
-        <!-- Créer un nouveau BDE en sélectionnant parmi les utilisateurs existants -->
+        
+                <div class="max-w-md mx-auto p-8 bg-gray-800 rounded-md shadow-md form-container">
+                    <h2 class="text-2xl font-semibold text-white mb-6">Create BDE</h2>
+                    <form method="POST" action="<?php echo e(route('admin.bde.store')); ?>">
+                        <?php echo csrf_field(); ?>
+            
+                        <!-- Name -->
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name:</label>
+                            <input type="text" name="name" id="name" placeholder="Name" required
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white">
+                            <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
+                            <input type="email" name="email" id="email" placeholder="Email" required
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white">
+                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-300 text-sm font-bold mb-2">Phone:</label>
+                            <input type="phone" name="phone" id="phone" placeholder="Phone" required
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white">
+                            <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        
+            
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
+                            Create BDE
+                        </button>
+                    </form>
+                </div>
+           
     </div>
 </div>
 
@@ -102,7 +205,15 @@
 
     // Initialiser le premier onglet
     showTab('tab1');
+
+  
+    new MultiSelectTag('user_ids')  // id
+    
+
 </script>
+
+
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.AdminDash', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/admin/bde/index.blade.php ENDPATH**/ ?>
