@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/password/change', [PasswordController::class, 'update'])->name('password.update');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admin'], function () {
+        Route::resource('dashboard', 'DashController');
         Route::resource('book_categories', 'BookCategoryController');
         Route::resource('users', 'UserController');
         Route::resource('books', 'BookController');

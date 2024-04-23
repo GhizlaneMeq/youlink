@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('content'); ?>
-<form action="<?php echo e(route('admin.users.update', $user->id)); ?>" method="POST" class="max-w-md mx-auto mt-20 p-6 bg-white border rounded-lg shadow-lg">
+<form action="<?php echo e(route('admin.users.update', $user->id)); ?>" method="POST" class="max-w-md mx-auto mt-20 p-6 border rounded-lg shadow-lg">
     <?php echo csrf_field(); ?>
     <?php echo method_field('PUT'); ?> 
     <h2 class="text-2xl font-bold mb-6">Edit User</h2>
@@ -59,4 +59,4 @@ unset($__errorArgs, $__bag); ?>
 </form>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/admin/users/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.AdminDash', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/admin/users/edit.blade.php ENDPATH**/ ?>

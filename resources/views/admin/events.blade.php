@@ -74,7 +74,6 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             <div class="flex gap-5 px-6 py-4 justify-center">
-                                <!-- Form for updating event status -->
                                 <form action="{{ route('admin.events.update', $event->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')

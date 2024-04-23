@@ -1,8 +1,8 @@
-@extends('layouts.dashboard')
+@extends('layouts.AdminDash')
 @section('content')
-<form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="max-w-md mx-auto mt-20 p-6 bg-white border rounded-lg shadow-lg">
+<form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="max-w-md mx-auto mt-20 p-6 border rounded-lg shadow-lg">
     @csrf
-    @method('PUT') {{-- Since you're updating, you need to use PUT method --}}
+    @method('PUT') 
     <h2 class="text-2xl font-bold mb-6">Edit User</h2>
     <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="name">

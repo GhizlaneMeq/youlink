@@ -64,18 +64,15 @@
                 <div class="card-header">{{ __('Select Existing BDE') }}</div>
     
                 <div class="card-body">
-                    <!-- Form to select existing BDE -->
                     <form method="POST" action="{{ route('admin.bde.store') }}">
                         @csrf
     
-                        <!-- Custom-styled select dropdown -->
                         <div class="relative">
                             <select name="user_ids[]" id="user_ids" multiple class="w-full px-3 py-2 border rounded-md focus:outline-none  text-gray-300 bg-gray-700 border-gray-600 focus:border-blue-500">
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
-                            <!-- Dropdown arrow icon -->
                             <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                                 <svg class="h-4 w-4 fill-current text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
@@ -101,7 +98,6 @@
                     <form method="POST" action="{{ route('admin.bde.store') }}">
                         @csrf
             
-                        <!-- Name -->
                         <div class="mb-4">
                             <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name:</label>
                             <input type="text" name="name" id="name" placeholder="Name" required
@@ -150,36 +146,31 @@
 
 <script>
     function showTab(tabId) {
-        // Masquer tout le contenu des onglets
         const tabContents = document.querySelectorAll('.tab-content');
         tabContents.forEach((content) => {
             content.classList.add('hidden');
         });
 
-        // Afficher le contenu de l'onglet sélectionné
         const selectedTab = document.getElementById(tabId);
         if (selectedTab) {
             selectedTab.classList.remove('hidden');
         }
 
-        // Supprimer la classe 'active' de tous les boutons d'onglet
         const tabButtons = document.querySelectorAll('.tab-button');
         tabButtons.forEach((button) => {
             button.classList.remove('active');
         });
 
-        // Ajouter la classe 'active' au bouton d'onglet cliqué
         const clickedButton = document.querySelector(`[onclick="showTab('${tabId}')"]`);
         if (clickedButton) {
             clickedButton.classList.add('active');
         }
     }
 
-    // Initialiser le premier onglet
     showTab('tab1');
 
   
-    new MultiSelectTag('user_ids')  // id
+    new MultiSelectTag('user_ids')  
     
 
 </script>
