@@ -13,18 +13,19 @@ class CheckAdminRole
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response)  $next
      */
     public function handle(Request $request, Closure $next)
-    {
-        $roles = ['admin']; 
-        if (!$request->user()) {
-            return redirect()->route('login')->with('error', 'You need to login to access this page');
-        }
-
-        foreach ($roles as $role) {
-            if ($request->user()->roles->contains('name', $role)) {
-                return $next($request);
-            }
-        }
-
-        return response()->view('error');
+{
+    $roles = ['admin', 'moderator'];
+    if (!$request->user()) {
+        return redirect()->route('login')->with('error', 'You need to login to access this page');
     }
+
+    foreach ($roles as $role) {
+        if ($request->user()->roles->contains('name', $role)) {
+            return $next($request);
+        }
+    }
+
+    return response()->view('error');
+}
+
 }

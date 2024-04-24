@@ -38,7 +38,7 @@
             <header class='  font-sans min-h-[60px]'>
                 <div
                     class='flex flex-wrap items-center justify-between xl:px-10 px-6 py-3 relative lg:gap-y-2 gap-y-4 gap-x-4'>
-                    <a href="javascript:void(0)"><img src="<?php echo e(asset('images/logo.png')); ?>" alt="logo" class='w-36' />
+                    <a href="/"><img src="<?php echo e(asset('images/logo.png')); ?>" alt="logo" class='w-48' />
                     </a>
                     <div class='flex items-center max-lg:ml-auto lg:order-1'>
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -157,12 +157,7 @@
 
                         </ul>
                     </li>
-                    <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
-                            class='hover:text-blue-500 font-bold text-white text-[15px] block'>Journey Hub</a></li>
-                    <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
-                            class='hover:text-blue-500 font-bold text-white text-[15px] block'>Contact</a></li>
-                    <li class='max-lg: max-lg:py-2'><a href='javascript:void(0)'
-                            class='hover:text-blue-500 font-bold text-white text-[15px] block'>Source</a></li>
+                    
                     </ul>
                     <button type="button"
                         class="flex tex rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"

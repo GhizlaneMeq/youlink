@@ -74,7 +74,6 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             <div class="flex gap-5 px-6 py-4 justify-center">
-                                <!-- Form for updating event status -->
                                 <form action="<?php echo e(route('admin.events.update', $event->id)); ?>" method="POST">
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('PUT'); ?>
