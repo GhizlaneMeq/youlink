@@ -3,7 +3,7 @@
 @section('main')
     @if (session('error'))
         <div id="alert-3"
-            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-red-400 rounded-lg bg-gray-800 dark:bg-red-900 dark:text-red-400"
             role="alert">
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 20 20">
@@ -15,7 +15,7 @@
                 {{ session('error') }}
             </div>
             <button type="button"
-                class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                class="ms-auto -mx-1.5 -my-1.5 bg-gray-800 dark:bg-red-900 text-red-400 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-gray-700 dark:hover:bg-red-800 inline-flex items-center justify-center h-8 w-8"
                 data-dismiss-target="#alert-3" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -28,7 +28,7 @@
     @endif
     @if (session('success'))
         <div id="alert-3"
-            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            class="flex fixed top-32 right-32 items-center p-4 mb-4 z-50 text-green-400 rounded-lg bg-gray-800 dark:bg-green-900 dark:text-green-400"
             role="alert">
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 20 20">
@@ -40,7 +40,7 @@
                 {{ session('success') }}
             </div>
             <button type="button"
-                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                class="ms-auto -mx-1.5 -my-1.5 bg-gray-800 dark:bg-green-900 text-green-400 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-gray-700 dark:hover:bg-green-800 inline-flex items-center justify-center h-8 w-8"
                 data-dismiss-target="#alert-3" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -51,18 +51,11 @@
             </button>
         </div>
     @endif
-    <div class="grid grid-cols-2 gap-4 mb-4">
-        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p class="text-2xl text-gray-600 font-semibold dark:text-gray-500">
-                My Reservations
-            </p>
-        </div>
-    </div>
-
-    <div class="my-4 rounded bg-gray-50 dark:bg-gray-800">
+   
+    <div class="my-4 rounded bg-gray-800 dark:bg-gray-900">
         <div class="relative flex p-10 flex-col items-center gap-4 overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-300  dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-300 dark:text-gray-400">
+                <thead class="text-xs text-gray-400 uppercase bg-gray-700 dark:bg-gray-800">
                     <tr>
                         <th scope="col" class="px-6 py-3">Event</th>
                         <th scope="col" class="px-6 py-3">Date</th>
@@ -72,11 +65,11 @@
                 </thead>
                 <tbody>
                     @forelse ($eventReservations as $reservation)
-                        <tr class="odd:bg-gray-100 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <tr class="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700 dark:border-gray-700">
                             <td class="px-6 py-4">{{ $reservation->event->title }}</td>
                             <td class="px-6 py-4">{{ $reservation->event->date }}</td>
                             <td class="px-6 py-4">{{ $reservation->event->location }}</td>
-                            <!-- Add more table data as needed -->
+                        
                         </tr>
                     @empty
                         <tr>

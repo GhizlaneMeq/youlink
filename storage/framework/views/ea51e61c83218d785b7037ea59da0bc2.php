@@ -1,70 +1,101 @@
 
 
-<?php $__env->startSection('main'); ?>
-div class="relative bg-gradient-to-b from-red-500 to-red-600">
-<div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 py-24">
-    <div class="text-center text-white">
-        <h1 class="text-4xl md:text-5xl font-bold">Lost Items</h1>
-        <p class="mt-4 text-lg md:text-xl">Explore lost items and help reunite them with their owners.</p>
-    </div>
-</div>
-</div>
-
-
-
-
-<div class="relative bg-gradient-to-b from-green-500 to-green-600">
-<div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 py-24">
-    <div class="text-center text-white">
-        <h1 class="text-4xl md:text-5xl font-bold">Found Items</h1>
-        <p class="mt-4 text-lg md:text-xl">Discover found items and help their owners reclaim them.</p>
-    </div>
-</div>
-</div>
+<?php $__env->startSection('main'); ?> 
     <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 mt-16">
-        <div class="mb-12 space-y-2 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Lost Items</h2>
-        </div>
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-                    <div class="relative overflow-hidden rounded-xl">
-                        <img src="<?php echo e(asset('storage/images/items/' . $item->picture)); ?>" alt="item image" loading="lazy" width="1000" height="667" class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105">
+        <div class="relative">
+            <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40  opacity-20">
+                <div class="blur-[106px] h-64 bg-gradient-to-br from-indigo-600 to-purple-400  from-blue-700"></div>
+                <div class="blur-[106px] h-64 bg-gradient-to-br from-indigo-600 to-purple-400  to-indigo-600"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6  pb-24">
+                <div class="relative  ml-auto">
+                    <div class="lg:w-2/3 text-center mx-auto">
+                        <h1 class="text-gray-900  text-white font-bold font-sans text-5xl md:text-6xl ">Discover Lost
+                            and Found Items with <span class="text-blue-900  text-white">LostNFound.</span></h1>
+                        <p class="mt-8   text-gray-300">LostNFound is your go-to platform for discovering
+                            and recovering lost items, connecting lost items with their owners, and ensuring every lost item finds its way back home.</p>
+        
+                        <div
+                            class="hidden py-8 mt-16 border-y border-gray-100  sm:flex justify-between">
+                            <div class="text-left">
+                                <h6 class="text-lg font-semibold   text-white">Efficient Search</h6>
+                            </div>
+                            <div class="text-left">
+                                <h6 class="text-lg font-semibold   text-white">Secure Platform</h6>
+                            </div>
+                            <div class="text-left">
+                                <h6 class="text-lg font-semibold   text-white">Simple Recovery Process</h6>
+                            </div>
+                        </div>
+        
+                        
+                        <div class="mt-8 flex justify-center space-x-4">
+                            <a href="<?php echo e(route('user.createFoundItem')); ?>" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out">Report Found Item</a>
+                            <a href="<?php echo e(route('user.createLostItem')); ?>" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out">Report Lost Item</a>
+                        </div>
                     </div>
-                    <h3 class="text-2xl mb-2 font-semibold text-gray-800 dark:text-white">
-                        <?php echo e($item->title); ?>
+                </div>
+            </div>
+        </div>
+        
+        
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <a href="<?php echo e(route('items.show', $item)); ?>">
+                <div class="relative flex flex-col rounded-xl bg-gray-800 text-white shadow-md mb-6">
+                    <div class="flex items-center justify-between p-3">
+                        <div class="flex items-center space-x-2">
+                            <img src="" alt=""
+                                class="object-cover object-center w-8 h-8 rounded-full shadow-sm  bg-gray-500  border-gray-300">
+                            <div class="-space-y-1">
+                                <h2 class="text-sm font-semibold leading-none"><?php echo e(Auth::user()->name); ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-t-xl bg-blue-gray-700 shadow-lg">
+                        <img src="" alt="">
+                    </div>
+                    <div class="p-6">
+                        <h5 class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal">
+                            <?php echo e($item->title); ?>
 
-                    </h3>
-                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                        Description: <?php echo e($item->description); ?>
+                        </h5>
+                        <p class="block font-sans text-base font-light leading-relaxed">
+                            <?php echo e($item->description); ?>
 
-                    </p>
-                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                        Location: <?php echo e($item->location); ?>
+                        </p>
+                        <p
+                            class="block mt-2 font-sans text-sm <?php if($item->status === 'lost'): ?> text-red-600 <?php elseif($item->status === 'found'): ?> text-yellow-600 <?php endif; ?>">
+                            Status: <?php echo e(ucfirst($item->status)); ?>
 
-                    </p>
-                    <p class=" mb-2 text-gray-600 dark:text-gray-300">
-                        Status: <?php echo e(ucfirst($item->status)); ?>
-
-                    </p>
-                    <div class="flex justify-center mt-4">
-                        <a href="<?php echo e(route('items.show', $item)); ?>" class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300">See More</a>
+                        </p>
+                    </div>
+                    <div class="p-6 pt-0">
+                           
                         <?php if($item->status === 'found'): ?>
                             <form action="<?php echo e(route('user.items.report_ownership', $item)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
-                                <button type="submit" class="ml-2 px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-red-600 hover:bg-red-700 active:bg-red-600 transition-all duration-300">Report Ownership</button>
+                                <button class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300" type="submit">Report Ownership</button>
                             </form>
                         <?php elseif($item->status === 'lost'): ?>
                             <form action="<?php echo e(route('user.items.report_finding', $item)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
-                                <button type="submit" class="ml-2 px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-green-600 hover:bg-green-700 active:bg-green-600 transition-all duration-300">Report Finding</button>
+                                <button class="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold bg-blue-600 hover:bg-blue-700 active:bg-blue-600 transition-all duration-300" type="submit">Report Finding</button>
                             </form>
                         <?php endif; ?>
                     </div>
                 </div>
+            </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
+        
     </div>
 <?php $__env->stopSection(); ?>
+
+
+
+
+
 
 <?php echo $__env->make('layouts.book', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Youcode\OneDrive\Desktop\youlink\resources\views/lost&found/index.blade.php ENDPATH**/ ?>

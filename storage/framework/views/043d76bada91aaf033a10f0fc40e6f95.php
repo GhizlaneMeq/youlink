@@ -92,7 +92,7 @@
                                 </svg>
                             </a>
                             <ul
-                                class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
+                                class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-gradient-to-br from-gray-900 to-black px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
                                 <li class='py-2'><a href='<?php echo e(route('books.index')); ?>'
                                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>All Books</a>
                                 </li>
@@ -117,7 +117,7 @@
                                 </svg>
                             </a>
                             <ul
-                                class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
+                                class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-gradient-to-br from-gray-900 to-black px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
                                 <li class='py-2'><a href='<?php echo e(route('items.index')); ?>'
                                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>All Items</a>
                                 </li>
@@ -127,37 +127,38 @@
                                 <li class='py-2'><a href='<?php echo e(route('found_items')); ?>'
                                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>Found Items</a>
                                 </li>
-                                <li class='py-2'><a href='<?php echo e(route('user.exchanges.outgoingRequests')); ?>'
+                                <li class='py-2'><a href='<?php echo e(route('user.createLostItem')); ?>'
                                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Lost
                                         Item</a></li>
-                                <li class='py-2'><a href='<?php echo e(route('user.exchanges.outgoingRequests')); ?>'
+                                <li class='py-2'><a href='<?php echo e(route('user.createFoundItem')); ?>'
                                         class='hover:text-blue-500 font-bold text-white text-[15px] block'>Report Found
                                         Item</a></li>
                             </ul>
                         </li>
-                    
-                    <li class='group max-lg: max-lg:py-2 relative'>
-                        <a href='<?php echo e(route('events.index')); ?>'
-                            class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>events<svg
-                                xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='currentColor'
-                                class="ml-1 inline-block" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 16a1 1 0 0 1-.71-.29l-6-6a1 1 0 0 1 1.42-1.42l5.29 5.3 5.29-5.29a1 1 0 0 1 1.41 1.41l-6 6a1 1 0 0 1-.7.29z"
-                                    data-name="16" data-original="#000000" />
-                            </svg>
-                        </a>
-                        <ul
-                            class='absolute hidden group-hover:block max-lg:border max-lg:border-gray-500 shadow-lg bg-[#232f3e] px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px]'>
-                            <li class=' py-2'><a href='<?php echo e(route('events.index')); ?>'
-                                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>All events</a>
-                            </li>
-                            <li class=' py-2'><a href='<?php echo e(route('user.reservations')); ?>'
-                                    class='hover:text-blue-500 font-bold text-white text-[15px] block'>my
-                                    reservations</a></li>
 
-                        </ul>
-                    </li>
-                    
+                        <li class='group max-lg: max-lg:py-2 relative'>
+                            <a href='<?php echo e(route('events.index')); ?>'
+                                class='hover:text-blue-500 font-bold text-white text-[15px] lg:hover:text-blue-600 block'>events<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px"
+                                    fill='currentColor' class="ml-1 inline-block" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 16a1 1 0 0 1-.71-.29l-6-6a1 1 0 0 1 1.42-1.42l5.29 5.3 5.29-5.29a1 1 0 0 1 1.41 1.41l-6 6a1 1 0 0 1-.7.29z"
+                                        data-name="16" data-original="#000000" />
+                                </svg>
+                            </a>
+                            <ul
+                                class='absolute hidden group-hover:block shadow-lg max-lg:border max-lg:border-gray-500 bg-gradient-to-br from-gray-900 to-black px-6 pb-4 pt-6 space-y-3 lg:top-5 max-lg:top-8 lg:-left-6 min-w-[250px] z-50'>
+                                <li class='py-2'><a href='<?php echo e(route('events.index')); ?>'
+                                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>events</a>
+                                </li>
+                                <li class='py-2'><a href='<?php echo e(route('user.reservations')); ?>'
+                                        class='hover:text-blue-500 font-bold text-white text-[15px] block'>my reservation</a>
+                                </li>
+                                
+                                
+                            </ul>
+                        </li>
+                     
+
                     </ul>
                     <button type="button"
                         class="flex tex rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
